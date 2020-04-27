@@ -3,14 +3,20 @@ Rails.application.configure do
     path = Rails.root.join("whitelist.yml")
     default_whitelist_path = Rails.root.join("default_whitelist.yml")
     whitelisted_ips = []
+
     if File.exist?(path)
       whitelisted_ips = YAML.load_file(path)
     end
+
     if File.exist?(default_whitelist_path)
       whitelisted_ips = whitelisted_ips.concat(YAML.load_file(default_whitelist_path))
     end
+
     config.web_console.permissions = whitelisted_ips
     config.web_console.whiny_requests = false
+
+    BetterErrors::Middleware.allow_ip! '10.138.0.0/16'
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -42,11 +48,6 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
-
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
-  config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
