@@ -1,4 +1,4 @@
-image: jelaniwoods/appdev2020-rps-interface
+image: jelaniwoods/appdev2020-rps-rcav
 
 tasks:
   - init: bin/setup
