@@ -1,3 +1,3 @@
-task({ :dummy_data => :environment}) do
+task({ :sample_data => :environment}) do
 
 end
